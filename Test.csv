@@ -1,0 +1,45 @@
+RowNumber,CustomerId,Surname,First Name,Date of Birth,Gender,Marital Status,Number of Dependents,Occupation,Income,Education Level,Address,Contact Information,Customer Tenure,Customer Segment,Preferred Communication Channel,Credit Score,Credit History Length,Outstanding Loans,Churn Flag,Churn Reason,Churn Date,Balance,NumOfProducts,NumComplaints
+1,83ef0b54-35f6-4f84-af58-5653ac0c0dc4,Smith,Troy,8/29/1987,Male,Divorced,3,Information systems manager,77710.14,High School,"26644 Diaz Viaduct
+North Jessicaville, VI 14852",001-301-934-3058x0825,30,Retail,Phone,397,24,41959.74,0,,,211359.05,1,0
+2,009f115a-e5ca-4cf4-97d6-530140545e4e,Sullivan,Katrina,2/7/2000,Female,Married,1,Charity fundraiser,58209.87,High School,"5642 Rachel Pass Suite 320
+Port Peggy, RI 75805",-5530,27,SME,Email,665,10,8916.67,0,,,30624.76,4,1
+3,66309fd3-5009-44d3-a3f7-1657c869d573,Fuller,Henry,2/3/1954,Female,Single,1,Television production assistant,9794.01,High School,"00025 Brittany Flats Apt. 543
+New Amandaborough, MH 69279",9753900004,14,Retail,Email,715,21,43270.54,0,,,111956.61,2,6
+4,b02a30df-1a5f-4087-8075-2a35432da641,Young,Antonio,1/15/1991,Female,Divorced,5,Agricultural engineer,15088.98,High School,"Unit 3386 Box 0088
+DPO AE 71940",+1-928-477-2856x660,23,Corporate,Phone,747,17,17887.65,0,,,201187.61,1,0
+5,0d932e5b-bb3a-4104-8c83-f84270f7f2ea,Andersen,John,4/8/1992,Female,Divorced,2,"Teacher, early years/pre",60726.56,Master's,"0120 Leslie River
+West Lindseychester, MN 98290",204.515.2388,22,Corporate,Email,549,25,32686.84,0,,,60391.24,5,6
+6,c18b027e-b108-4900-b413-dac87e2ee9b5,Gonzales,Ashley,11/28/1987,Male,Single,0,"Surveyor, building",55608.75,Bachelor's,"PSC 3787, Box 9869
+APO AP 62324",001-880-967-5883x0508,15,Retail,Email,809,27,37218.81,1,Account Closure,7/31/2024,31206.81,2,10
+7,7091e271-7d2b-4e73-934f-8398e2a1dcbc,Wilcox,Daniel,9/7/1976,Female,Single,1,Publishing copy,22032.61,Diploma,"983 Adams Coves
+Lake Roberto, MP 82550",4756961139,15,Retail,Email,690,29,26200,0,,,198443.5,2,1
+8,d5e80b75-bd3f-4d8a-b847-0868f8eb9e40,Lopez,Johnny,8/5/1993,Male,Divorced,4,Industrial buyer,73462.72,Diploma,"905 Jackson View Suite 009
+South Amymouth, PA 54407",001-577-988-4031x4410,3,Corporate,Email,605,30,25156.25,0,,,96378.05,4,6
+9,9eba62c1-0af0-4424-9218-435ece0689aa,Miles,Kelly,8/3/2001,Male,Divorced,3,Medical sales representative,30054.43,Bachelor's,"6398 Morgan Knolls
+Julieborough, NH 55183",001-245-374-7034x4970,20,Corporate,Phone,634,16,41854.08,0,,,108395.17,5,1
+10,4eea7068-ea07-4898-bb04-6ccd8b729fc9,Thompson,Anthony,1/12/1991,Female,Divorced,5,Media buyer,24129.53,Master's,"674 Reed Islands
+Loweville, TX 67579",+1-814-630-2270x6096,21,SME,Phone,831,10,30914.02,0,,,99830.84,4,5
+11,ecdf1f7f-2341-432e-85a8-4ba806d3c1ef,Morrison,Donald,7/17/1974,Male,Married,5,Sales executive,58523.79,Bachelor's,"385 Martinez Port Suite 203
+Ricefort, PA 75457",(806)258-1579x70371,26,Corporate,Email,759,18,26021.64,0,,,141823.51,5,5
+12,c4ec24ec-8f81-451f-8b14-eaf5c0765be9,Schwartz,Angela,11/30/1994,Male,Divorced,5,"Engineer, biomedical",17009.77,High School,"495 Thornton Fork Suite 422
+West Rubenmouth, MD 54759",+1-793-776-3624x02031,22,Corporate,Phone,332,14,35937.1,0,,,122931.63,5,9
+13,03169a54-fb8e-46e7-a795-26feead5a8e4,Cain,Elizabeth,5/21/1950,Female,Single,2,"Development worker, international aid",83160.48,Diploma,"54436 Colin Bridge
+Dustinhaven, AK 07204",+1-657-684-6950x96745,12,SME,Email,688,9,41808.44,0,,,216944.39,2,8
+14,d9188e85-2926-412f-8083-1bcb7f5d1ffd,Wagner,James,4/1/1996,Female,Single,1,Health and safety adviser,35415.53,High School,"116 Yvette Drive
+New Amanda, NY 31796",(266)785-1559,22,SME,Email,750,12,35513.69,0,,,31446.19,2,0
+15,f3485bfa-d927-4d68-b61a-77c9999dbd65,Zimmerman,David,4/14/1956,Female,Married,4,"Scientist, research (maths)",44108.56,Diploma,"9361 Angela Stream Apt. 303
+Fernandoberg, NM 11971",001-837-537-0263x34118,22,SME,Email,609,28,46330.11,0,,,126906.93,3,10
+16,55ef7db8-346b-430d-8fe3-ffd4e1382850,Stout,Charles,7/5/1956,Male,Single,2,Soil scientist,10051.24,Diploma,"7593 Weiss Radial
+South Brian, PA 32423",+1-429-457-9937x9101,13,Corporate,Phone,678,3,15156.6,0,,,143624.95,2,10
+17,963aaa61-c10f-46cb-be53-51505d395bd1,Medina,Adam,10/24/1996,Male,Divorced,2,Animal nutritionist,19725.99,Master's,"5990 Douglas Street Apt. 578
+Robertsonmouth, ID 08914",544.773.2718x2419,23,Retail,Email,399,22,31765.09,1,Relocation,4/30/2024,18249.32,4,10
+18,c0d1baf8-eb34-4fa0-9784-98cea756acb5,Barker,Kelly,4/14/1974,Male,Married,1,Secondary school teacher,19632.81,Master's,"31762 Eric Oval
+East Dannytown, TX 86233",278.430.8589,8,Corporate,Email,744,17,7803.87,0,,,72541.01,4,10
+19,b307039e-5723-4cfe-b793-cdb0822a66d9,Garcia,Mandy,10/26/1976,Female,Married,1,Civil Service administrator,17002.05,Diploma,"3267 Haynes Roads Apt. 605
+Knightview, MD 25372",747-623-3046,23,Retail,Email,516,30,37680.08,1,Account Closure,5/5/2024,47496,1,6
+20,859e5501-c58d-48bb-b20b-e19fbccb9712,Coleman,Robert,9/9/1982,Female,Single,0,"Engineer, site",69930.91,High School,"27728 Amber Lakes Suite 809
+Isaiahstad, FL 75598",001-301-733-2261x5048,14,Retail,Email,790,8,29280.66,0,,,60845.11,1,6
+21,4edc97b3-f6bf-45dd-8cfb-b8f1c82be8a5,Jones,Nathaniel,5/29/1963,Male,Married,1,"Engineer, biomedical",65032.92,Master's,"10225 Floyd Mountain Apt. 167
+North Ruthfurt, AL 09967",4828732509,26,Corporate,Email,414,12,2381.23,0,,,141183.72,2,3
+22,a654eb64-9cce-4cd7-835a-5c9a1d73cb33,Martinez,Kevin,1/15/1990,Male,Single,0,"Engineer, civil (contracting)",39981.11,Bachelor's,"Unit 9654 Box 7101
+DPO AE 25766",2685896429,25,Retail,Phone,437,2,6761.18,1,Account Closure,6/13/2024,75231.59,2,9
