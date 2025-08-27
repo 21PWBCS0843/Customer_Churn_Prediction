@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-chart-line"></i> ChurnGuard</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#prediction"><i class="fas fa-user-check"></i> Customer Prediction</a></li>
+                    <li><a href="#batch-prediction"><i class="fas fa-users-cog"></i> Batch Prediction</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Powered by ML</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="spacer"></div>
+                <div class="user-info">
+                    <span>Admin User</span>
+                    <img src="{{ url_for('static', filename='img/user-avatar.png') }}" alt="User Avatar" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2235%22 height%3D%2235%22 viewBox%3D%220 0 35 35%22%3E%3Ccircle cx%3D%2217.5%22 cy%3D%2217.5%22 r%3D%2217.5%22 fill%3D%22%23adb5bd%22%2F%3E%3C%2Fsvg%3E'">
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h1>Customer Churn Dashboard</h1>
+                    <p>Real-time insights and analytics</p>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-minus"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Churn Rate</h3>
+                            <p id="churn-rate">Loading...</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Segments</h3>
+                            <p>4</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>High Risk Customers</h3>
+                            <p id="high-risk-count">Loading...</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Model Accuracy</h3>
+                            <p>86.5%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Churn by Customer Segment</h3>
+                        <div class="chart-container">
+                            <canvas id="segment-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Risk Level Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="risk-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Top Churn Factors</h3>
+                        <div class="chart-container">
+                            <canvas id="factors-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Churn Trend</h3>
+                        <div class="chart-container">
+                            <canvas id="trend-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Prediction Section -->
+            <section id="prediction" class="content-section">
+                <div class="section-header">
+                    <h1>Customer Churn Prediction</h1>
+                    <p>Predict individual customer churn risk</p>
+                </div>
+
+                <div class="prediction-container modern-container flex-column">
+                    <div class="prediction-form modern-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user-check"></i> Customer Information</h3>
+                            <p>Enter customer details to predict churn probability</p>
+                        </div>
+                        <form id="prediction-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="credit-score">Credit Score</label>
+                                    <input type="number" id="credit-score" name="CreditScore" min="300" max="900" value="650" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="geography">Geography</label>
+                                    <div class="select-wrapper">
+                                        <select id="geography" name="Geography" required>
+                                            <option value="France">France</option>
+                                            <option value="Spain">Spain</option>
+                                            <option value="Germany">Germany</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <div class="select-wrapper">
+                                        <select id="gender" name="Gender" required>
+                                            <option value="Female">Female</option>
+                                            <option value="Male">Male</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="number" id="age" name="Age" min="18" max="100" value="35" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tenure">Tenure (years)</label>
+                                    <input type="number" id="tenure" name="Tenure" min="0" max="10" value="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="balance">Balance ($)</label>
+                                    <input type="number" id="balance" name="Balance" min="0" max="250000" value="75000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="products">Number of Products</label>
+                                    <input type="number" id="products" name="NumOfProducts" min="1" max="4" value="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="credit-card">Has Credit Card</label>
+                                    <div class="select-wrapper">
+                                        <select id="credit-card" name="HasCrCard" required>
+                                            <option value="No">No</option>
+                                            <option value="Yes" selected>Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="active-member">Is Active Member</label>
+                                    <div class="select-wrapper">
+                                        <select id="active-member" name="IsActiveMember" required>
+                                            <option value="No">No</option>
+                                            <option value="Yes" selected>Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estimated-salary">Estimated Salary ($)</label>
+                                    <input type="number" id="estimated-salary" name="EstimatedSalary" min="10000" max="200000" value="50000" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="predict-btn modern-btn">
+                                <i class="fas fa-calculator"></i> Predict Churn Risk
+                            </button>
+                        </form>
+                    </div>
+                    <div class="prediction-result modern-card" id="prediction-result">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-pie"></i> Prediction Results</h3>
+                            <p>Customer churn risk assessment</p>
+                        </div>
+                        <div class="result-placeholder">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <p>Fill the form and click "Predict Churn Risk" to see results</p>
+                        </div>
+                        <div class="result-content" style="display: none;">
+                            <div class="risk-meter-container">
+                                <div class="risk-meter">
+                                    <div class="risk-gauge">
+                                        <div class="gauge-fill" id="risk-gauge-fill"></div>
+                                        <div class="gauge-center">
+                                            <span id="risk-percentage">0%</span>
+                                            <span id="risk-label">Low Risk</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="risk-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-color low-risk"></span>
+                                        <span>Low Risk (0-25%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color medium-risk"></span>
+                                        <span>Medium Risk (25-50%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color high-risk"></span>
+                                        <span>High Risk (50-75%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color very-high-risk"></span>
+                                        <span>Very High Risk (75-100%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-section">
+                                <h4 class="section-title"><i class="fas fa-exclamation-triangle"></i> Primary Churn Factors</h4>
+                                <div class="churn-factors-container" id="churn-factors-container">
+                                    <!-- Churn factors will be inserted here dynamically -->
+                                </div>
+                            </div>
+                            
+                            <div class="result-section">
+                                <h4 class="section-title"><i class="fas fa-user-tag"></i> Customer Profile</h4>
+                                <div class="result-details">
+                                    <div class="result-item">
+                                        <h4>Customer Segment</h4>
+                                        <p id="customer-segment">-</p>
+                                    </div>
+                                    <div class="result-item">
+                                        <h4>Risk Level</h4>
+                                        <p id="risk-level">-</p>
+                                    </div>
+                                </div>
+                                <div class="similar-customers">
+                                    <div class="similar-metric">
+                                        <div class="similar-value" id="similar-count">0</div>
+                                        <div class="similar-label">Similar Customers</div>
+                                    </div>
+                                    <div class="similar-metric">
+                                        <div class="similar-value" id="similar-churn">0%</div>
+                                        <div class="similar-label">Average Churn Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-section">
+                                <h4 class="section-title"><i class="fas fa-coins"></i> Financial Impact</h4>
+                                <div class="financial-metrics">
+                                    <div class="financial-metric">
+                                        <div class="metric-value" id="customer-ltv">$0</div>
+                                        <div class="metric-label">Customer Lifetime Value</div>
+                                    </div>
+                                    <div class="financial-metric">
+                                        <div class="metric-value" id="retention-cost">$0</div>
+                                        <div class="metric-label">Retention Cost</div>
+                                    </div>
+                                    <div class="financial-metric">
+                                        <div class="metric-value" id="churn-impact">$0</div>
+                                        <div class="metric-label">3-Year Churn Impact</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-section">
+                                <h4 class="section-title"><i class="fas fa-shield-alt"></i> Recommended Retention Strategies</h4>
+                                <div class="strategies-container" id="strategies-container">
+                                    <!-- Strategies will be inserted here dynamically -->
+                                </div>
+                            </div>
+                            
+                            <div class="result-section">
+                                <h4 class="section-title"><i class="fas fa-tasks"></i> Action Plan</h4>
+                                <div class="recommendations">
+                                    <ul id="recommendations-list">
+                                        <!-- Recommendations will be inserted here dynamically -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Batch Prediction Section -->
+            <section id="batch-prediction" class="content-section">
+                <div class="section-header">
+                    <h1>Batch Customer Prediction</h1>
+                    <p>Upload CSV file to predict churn risk for multiple customers</p>
+                </div>
+
+                <div class="batch-container modern-container flex-column">
+                    <div class="batch-upload-card modern-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-file-upload"></i> Upload Customer Data</h3>
+                            <p>Process multiple customers at once</p>
+                        </div>
+                        <div class="upload-instructions">
+                            <div class="instruction-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Prepare Your CSV File</h4>
+                                    <p>Ensure your CSV file contains all required fields with proper formatting.</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Upload Your File</h4>
+                                    <p>Select your CSV file using the upload button below.</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Process & Download</h4>
+                                    <p>Click "Process" to analyze the data and download the results.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="required-fields-container">
+                                <h4>Required Fields:</h4>
+                                <div class="required-fields-grid">
+                                    <div class="required-field">
+                                        <span class="field-name">CreditScore</span>
+                                        <span class="field-type">Numeric</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">Geography</span>
+                                        <span class="field-type">France/Spain/Germany</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">Gender</span>
+                                        <span class="field-type">Male/Female</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">Age</span>
+                                        <span class="field-type">Numeric</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">Tenure</span>
+                                        <span class="field-type">Numeric</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">Balance</span>
+                                        <span class="field-type">Numeric</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">NumOfProducts</span>
+                                        <span class="field-type">Numeric</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">HasCrCard</span>
+                                        <span class="field-type">Yes/No or 1/0</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">IsActiveMember</span>
+                                        <span class="field-type">Yes/No or 1/0</span>
+                                    </div>
+                                    <div class="required-field">
+                                        <span class="field-name">EstimatedSalary</span>
+                                        <span class="field-type">Numeric</span>
+                                    </div>
+                                </div>
+                                <div class="template-download">
+                                    <a href="/static/sample_template.csv" download class="template-btn">
+                                        <i class="fas fa-download"></i> Download Template
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <form id="batch-upload-form" enctype="multipart/form-data">
+                            <div class="file-upload-container">
+                                <label for="csv-file" class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Choose CSV File</span>
+                                </label>
+                                <input type="file" id="csv-file" name="file" accept=".csv" class="file-upload-input">
+                                <div id="file-name" class="file-name">No file selected</div>
+                            </div>
+                            <button type="submit" class="predict-btn batch-predict-btn modern-btn" disabled>
+                                <i class="fas fa-cogs"></i> Process Batch Prediction
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="batch-results-card modern-card" id="batch-results">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Batch Prediction Results</h3>
+                            <p>Analysis of uploaded customer data</p>
+                        </div>
+                        
+                        <!-- Empty state placeholder -->
+                        <div class="batch-placeholder">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <p>Upload a CSV file to see batch prediction results</p>
+                        </div>
+                        
+                        <!-- Results content (hidden by default) -->
+                        <div class="batch-content" style="display: none;">
+                            <!-- Success message -->
+                            <div id="batch-success-message" class="success-message">
+                                <i class="fas fa-check-circle"></i> Batch processing completed successfully!
+                            </div>
+                            
+                            <!-- Summary statistics -->
+                            <div class="batch-summary">
+                                <div class="summary-item">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="summary-details">
+                                        <h4>Total Customers</h4>
+                                        <p id="total-customers">0</p>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-percentage"></i>
+                                    </div>
+                                    <div class="summary-details">
+                                        <h4>Average Churn Risk</h4>
+                                        <p id="avg-churn-risk">0%</p>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="summary-details">
+                                        <h4>High Risk Customers</h4>
+                                        <p id="batch-high-risk">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Filter section -->
+                            <div class="batch-filter">
+                                <h4><i class="fas fa-filter"></i> Filter Results</h4>
+                                <form id="batch-filter-form">
+                                    <div class="filter-form">
+                                        <div class="filter-group">
+                                            <label for="risk-filter">Risk Level</label>
+                                            <select id="risk-filter">
+                                                <option value="">All Risk Levels</option>
+                                                <option value="Low Risk">Low Risk</option>
+                                                <option value="Medium Risk">Medium Risk</option>
+                                                <option value="High Risk">High Risk</option>
+                                                <option value="Very High Risk">Very High Risk</option>
+                                            </select>
+                                        </div>
+                                        <div class="filter-group">
+                                            <label for="segment-filter">Customer Segment</label>
+                                            <select id="segment-filter">
+                                                <option value="">All Segments</option>
+                                                <option value="Young Professionals">Young Professionals</option>
+                                                <option value="Established Savers">Established Savers</option>
+                                                <option value="High-Value Clients">High-Value Clients</option>
+                                                <option value="At-Risk Seniors">At-Risk Seniors</option>
+                                            </select>
+                                        </div>
+                                        <div class="filter-group">
+                                            <label for="probability-filter">Churn Probability</label>
+                                            <select id="probability-filter">
+                                                <option value="">All Probabilities</option>
+                                                <option value="0-25">0-25%</option>
+                                                <option value="25-50">25-50%</option>
+                                                <option value="50-75">50-75%</option>
+                                                <option value="75-100">75-100%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="filter-actions">
+                                        <button type="button" class="filter-btn reset">Reset</button>
+                                        <button type="submit" class="filter-btn apply">Apply Filters</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Detailed statistics -->
+                            <div class="batch-stats-card">
+                                <h4>Detailed Statistics</h4>
+                                <div class="stats-container">
+                                    <div class="stats-section">
+                                        <h5>Segment Distribution</h5>
+                                        <div class="stats-grid">
+                                            <div class="stat-box">
+                                                <h6>Young Professionals</h6>
+                                                <p id="yp-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                            <div class="stat-box">
+                                                <h6>Established Savers</h6>
+                                                <p id="es-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                            <div class="stat-box">
+                                                <h6>High-Value Clients</h6>
+                                                <p id="hvc-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                            <div class="stat-box">
+                                                <h6>At-Risk Seniors</h6>
+                                                <p id="ars-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stats-section">
+                                        <h5>Risk Distribution</h5>
+                                        <div class="stats-grid">
+                                            <div class="stat-box">
+                                                <h6>Low Risk</h6>
+                                                <p id="low-risk-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                            <div class="stat-box">
+                                                <h6>Medium Risk</h6>
+                                                <p id="medium-risk-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                            <div class="stat-box">
+                                                <h6>High Risk</h6>
+                                                <p id="high-risk-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                            <div class="stat-box">
+                                                <h6>Very High Risk</h6>
+                                                <p id="very-high-risk-percent" class="stat-value">0.0%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Charts section -->
+                            <div class="batch-charts">
+                                <div class="chart-box">
+                                    <h4>Risk Distribution (%)</h4>
+                                    <div class="chart-container">
+                                        <canvas id="batch-risk-chart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="chart-box">
+                                    <h4>Segment Distribution (%)</h4>
+                                    <div class="chart-container">
+                                        <canvas id="batch-segment-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Results table -->
+                            <div class="batch-table-container">
+                                <h4>Customer Preview (Top 5 High Risk)</h4>
+                                <div class="table-responsive">
+                                    <table id="batch-results-table" class="batch-results-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Customer ID</th>
+                                                <th>Segment</th>
+                                                <th>Churn Probability</th>
+                                                <th>Risk Level</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Table content will be dynamically generated -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="batch-pagination">
+                                    <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn">3</button>
+                                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Download section -->
+                            <div class="batch-download">
+                                <p>Download the complete prediction results in your preferred format:</p>
+                                <div class="download-options">
+                                    <a id="download-link" class="download-btn" href="#" download data-type="csv">
+                                        <i class="fas fa-file-csv"></i> Download CSV
+                                    </a>
+                                    <a class="download-btn secondary" href="#" download data-type="pdf">
+                                        <i class="fas fa-file-pdf"></i> Download PDF Report
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Loading state -->
+                        <div class="batch-loading" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>Processing your data...</p>
+                        </div>
+                        
+                        <!-- Error state -->
+                        <div class="batch-error" style="display: none;">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <p id="batch-error-message">An error occurred</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
